@@ -48,7 +48,7 @@
 $filteredHotels = $hotels;
 
 if ( !empty($_GET) ){
-    if ( !empty($_GET['parking']) ){
+    if ( !empty($_GET['parking']) && $_GET['parking'] == 'on' ){
         $parking = $_GET['parking'];
 
         $filteredHotels = array_filter($filteredHotels, function($hotel){
@@ -60,7 +60,7 @@ if ( !empty($_GET) ){
     if ( !empty($_GET['vote']) ){
         $vote = $_GET['vote'];
         $filteredHotels = array_filter($filteredHotels, function($hotel) use ($vote){
-            return $hotel['vote'] == $vote;
+            return $hotel['vote'] >= $vote;
         });
     } 
 }
@@ -94,7 +94,7 @@ if ( !empty($_GET) ){
                 </div>
             </div>
             <div class="col-md-6">
-                <label for="vote" class="form-label">Voto</label>
+                <label for="vote" class="form-label">Voto minimo</label>
                 <input type="number" name="vote" id="vote" min="1" max="5" class="form-control">
             </div>
             <div class="col-12 text-center">
